@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Starter Template for Bootstrap</title>
+
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'books/css/style.css' %}"media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="{% static 'books/css/bootstrap.min.css' %}"media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="{% static 'books/css/starter-template.css' %}"media="screen" title="no title" charset="utf-8">
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Belt Reviewer</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="{% url 'books:index' %}">Home</a></li>
+            <li><a href="{% url 'books:add' %}">Add Book and Review</a></li>
+            <li class="active"><a href="#">User Profile</a></li>
+            <li><a href="{% url 'login_reg:index' %}">Log Out</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <div class="container">
+        <h2 style="display:inline-block;">User Alias: {{user.alias}}</h2>
+        <div class="" style="margin: 0px 0px 0px 30px;">
+        <h3>Name: </h3><p style="margin: 20px 0px 0px 30px;">{{user.name}}</p>
+        <h3>Email: </h3><p style="margin: 20px 0px 0px 30px;">{{user.email}}</p>
+        <h3>Total Reviews: </h3><p style="margin: 20px 0px 0px 30px;">{{bks}}</p>
+        </div>
+        <h3>Posted Reviews on the following books:</h3>
+            {% for book in books %}
+                <p><a href="{% url 'books:show' id=book.book_id.id %}">{{book.book_id.title}}</a></p>
+            {% endfor %}
+    </div><!-- /.container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+  </body>
+</html>

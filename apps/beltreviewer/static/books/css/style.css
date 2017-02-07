@@ -1,0 +1,42 @@
+.one {
+    width: 50px;
+    height: 10px;
+    background-image:url('stars_1.png');
+    background-repeat:no-repeat;
+    background-size:100%;
+}
+.two {
+    width: 50px;
+    height: 10px;
+    background-image:url('stars_2.png');
+    background-repeat:no-repeat;
+    background-size:100%;
+}
+.three {
+    width: 50px;
+    height: 10px;
+    background-image:url('stars_3.png');
+    background-repeat:no-repeat;
+    background-size:100%;
+}
+.four {
+    width: 50px;
+    height: 10px;
+    background-image:url('stars_4.png');
+    background-repeat:no-repeat;
+    background-size:100%;
+}
+.five {
+    width: 50px;
+    height: 10px;
+    background-image:url('stars_5.png');
+    background-repeat:no-repeat;
+    background-size:100%;
+}
+.book {
+    padding-left: 30px;
+    display: inline-block;
+    text-decoration: underline;
+    vertical-align: top;
+    margin: 10px;
+}

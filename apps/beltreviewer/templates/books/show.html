@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Starter Template for Bootstrap</title>
+
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'books/css/style.css' %}"media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="{% static 'books/css/bootstrap.min.css' %}"media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="{% static 'books/css/starter-template.css' %}"media="screen" title="no title" charset="utf-8">
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Belt Reviewer</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="{% url 'books:index' %}">Home</a></li>
+            <li><a href="{% url 'books:add' %}">Add Book and Review</a></li>
+            <li class="active"><a href="#">Book</a></li>
+            <li><a href="{% url 'login_reg:index' %}">Log Out</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <div class="container">
+        <h2>{{title}}</h2>
+        <p>Written by: {{author}}</p>
+        <h3 style="margin: 40px 15px 0px 15px;">Reviews:</h3>
+        <div class="" style="width: 500px; margin: 0px 50px 0px 30px; display: inline-block; vertical-align: top;">
+        {% for review in reviews %}
+                <hr>
+                <p style="display: inline-block">Rating:</p>
+                <div style="display: inline-block" class="{{review.rating}}"></div>
+                <p><a href="{% url 'books:user' id=review.user_id.id %}">{{review.user_id.alias}}</a> says:</p>
+                <p style="font-style: italic;">{{review.review}}</p>
+                <p style="font-style: italic;">Posted on {{review.created_at}}</p>
+                {% if request.session.int_id == review.user_id.id %}
+                    <form action="{% url 'books:delete' id=review.id %}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="logged_id" value="{{request.session.logged_id}}">
+                        <input type="hidden" name="book_id" value="{{review.book_id.id}}">
+                        <input type="submit" name="" value="Delete your Review">
+                    </form>
+                {% endif %}
+        {% endfor %}
+        <form class="" style="display:inline-block; margin:30px" action="{% url 'books:remove' id=id %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="logged_id" value="{{request.session.logged_id}}">
+            <input type="submit" name="" value="Remove Book">
+        </form>
+        </div>
+        <form class="" style="display:inline-block;" action="{% url 'books:addreview' %}" method="post">
+            {% csrf_token %}
+            <h6>Add a Review:</h6>
+            {% for error in request.session.errors %}
+              <p>{{error}}</p>
+            {% endfor %}
+            <input type="hidden" name="logged_id" value="{{request.session.logged_id}}">
+            <input type="hidden" name="title" value="{{title}}">
+            <input type="hidden" name="author" value="{{author}}">
+            <input type="hidden" name="book_id" value="{{id}}">
+            <input type="hidden" name="location" value="show">
+            <textarea name="review" rows="8" cols="70"></textarea>
+            <h3>Rating:</h3>
+            <select class="" name="rating">
+                <option value="one">1</option>
+                <option value="two">2</option>
+                <option value="three">3</option>
+                <option value="four">4</option>
+                <option value="five">5</option>
+            </select>
+            <p>stars</p>
+            <input style="margin:30px;" type="submit" name="" value="Submit Review">
+        </form>
+    </div><!-- /.container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+  </body>
+</html>
